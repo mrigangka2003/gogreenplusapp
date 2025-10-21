@@ -1,4 +1,4 @@
-import  { useState } from "react";
+import { useState } from "react";
 import { Search, Users, Plus } from "lucide-react";
 
 interface Task {
@@ -46,10 +46,17 @@ export default function OrganizationHome() {
                 deadline: new Date().toISOString().split("T")[0],
                 status: "reported",
             };
-            setTasks([...tasks, newTask]);
+            setTasks((prev) => [...prev, newTask]);
             setActiveTab("reported");
         }
     };
+
+    const statusLabel = (s: Task["status"]) =>
+        s === "in-progress"
+            ? "In Progress"
+            : s === "reported"
+            ? "Reported"
+            : "Completed";
 
     return (
         <div className="min-h-screen bg-tertiary-500 pb-24 max-w-md mx-auto">
@@ -129,7 +136,7 @@ export default function OrganizationHome() {
                                         {task.title}
                                     </h3>
                                     <span className="bg-secondary-500 text-mocha-500 text-xs font-medium px-3 py-1 rounded uppercase tracking-wide">
-                                        Reported
+                                        {statusLabel(task.status)}
                                     </span>
                                 </div>
                                 <p className="text-sm text-mocha-500 mb-1">
@@ -148,9 +155,11 @@ export default function OrganizationHome() {
                 )}
             </div>
 
-            {/* Floating Action Button */}
+            {/* Floating Action Button — show on mobile only */}
             <button
-                className="fixed bottom-6 right-6 bg-primary-500 text-white rounded-full px-6 py-4 shadow-lg flex items-center gap-2 font-medium text-sm hover:opacity-90 transition-opacity active:scale-95"
+                type="button"
+                aria-label="Raise Request"
+                className="fixed flex bottom-22 right-6 bg-primary-500 text-white rounded-full px-6 py-4 shadow-lg items-center gap-2 font-medium text-sm hover:opacity-90 transition-opacity active:scale-95 z-40 md:hidden"
                 onClick={handleRaiseRequest}
             >
                 <Plus size={20} />
