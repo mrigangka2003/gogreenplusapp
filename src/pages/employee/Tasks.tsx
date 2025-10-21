@@ -2,7 +2,7 @@
 
 import TaskDetails from "../../components/TasksDetails";
 
-export function EmployeeTasks() {
+export default function EmployeeTasks() {
     // TODO: replace with real tasks. Keeping empty to match provided design.
     // const tasks: Array<{ id: string; title: string; done?: boolean }> = [];
 

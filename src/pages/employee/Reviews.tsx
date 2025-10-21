@@ -1,6 +1,6 @@
 import { MessageSquare } from "lucide-react";
 
-export function EmployeeReviews() {
+export default function EmployeeReviews() {
     // TODO: swap with reviews data from API
     const reviews: Array<{
         id: string;

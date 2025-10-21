@@ -4,7 +4,7 @@ import BottomBar from "../components/BottomBar";
 
 const DashboardLayout = () => {
 
-    const userRoles = "emp"
+    const userRoles = "org"
 
     return (
         <div className="flex flex-col min-h-screen bg-black text-white">
