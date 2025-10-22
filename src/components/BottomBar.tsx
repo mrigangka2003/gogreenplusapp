@@ -54,7 +54,6 @@ const orgSidebarContent: SideBar[] = [
         icon: <CalendarCheck size={20} />,
     },
     { title: "Profile", path: "profile", icon: <User size={20} /> },
-    { title: "Logout", path: "logout", icon: <User size={20} /> },
 ];
 
 export const empSidebarContent: SideBar[] = [

@@ -1,11 +1,15 @@
-import { useState } from "react";
+import { useState, lazy, Suspense } from "react";
 import { Search, Users, Plus } from "lucide-react";
+
+const RaiseRequest = lazy(() => import("../../components/RaiseRequest"));
+const OrgRequestModal = lazy(() => import("../../components/Modals/OrgRequestModal"));
 
 interface Task {
     id: string;
     title: string;
     assignedTo: string;
     deadline: string;
+    description: string;
     status: "reported" | "in-progress" | "completed";
 }
 
@@ -14,6 +18,8 @@ type TabType = "reported" | "in-progress" | "completed";
 export default function OrganizationHome() {
     const [activeTab, setActiveTab] = useState<TabType>("reported");
     const [searchQuery, setSearchQuery] = useState("");
+    const [showRaise, setShowRaise] = useState(false);
+
     const [tasks, setTasks] = useState<Task[]>([
         {
             id: "1",
@@ -21,8 +27,13 @@ export default function OrganizationHome() {
             assignedTo: "Tirthankar Das",
             deadline: "2023-10-29",
             status: "reported",
+            description: "Bhalo koira poriskar koron lgbo",
         },
     ]);
+
+    // NEW: modal state
+    const [selectedTask, setSelectedTask] = useState<Task | null>(null);
+    const [showDetails, setShowDetails] = useState(false);
 
     const filteredTasks = tasks.filter(
         (task) =>
@@ -36,19 +47,24 @@ export default function OrganizationHome() {
         { key: "completed", label: "Completed" },
     ];
 
-    const handleRaiseRequest = () => {
-        const title = prompt("Enter request title:");
-        if (title && title.trim()) {
-            const newTask: Task = {
-                id: Date.now().toString(),
-                title: title.trim(),
-                assignedTo: "Unassigned",
-                deadline: new Date().toISOString().split("T")[0],
-                status: "reported",
-            };
-            setTasks((prev) => [...prev, newTask]);
-            setActiveTab("reported");
-        }
+    const handleCreateRequest = (data: {
+        locality: string;
+        description: string;
+    }) => {
+        const newTask: Task = {
+            id: Date.now().toString(),
+            title: data.locality,
+            assignedTo: "Samik Das",
+            deadline: new Date().toISOString().slice(0, 10), // YYYY-MM-DD for consistency
+            status: "reported",
+            description: data.description,
+        };
+        setTasks((prev) => [
+            // keep newest on top
+            newTask,
+            ...prev,
+        ]);
+        console.log("Raised request:", data);
     };
 
     const statusLabel = (s: Task["status"]) =>
@@ -57,6 +73,15 @@ export default function OrganizationHome() {
             : s === "reported"
             ? "Reported"
             : "Completed";
+
+    // NEW: update status handler (used by modal CTA)
+    function handleUpdateStatus(id: string, next: Task["status"]) {
+        setTasks((prev) =>
+            prev.map((t) => (t.id === id ? { ...t, status: next } : t))
+        );
+        setShowDetails(false);
+        setSelectedTask(null);
+    }
 
     return (
         <div className="min-h-screen bg-tertiary-500 pb-24 max-w-md mx-auto">
@@ -95,7 +120,7 @@ export default function OrganizationHome() {
                         placeholder="Search tasks"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className="w-full pl-10 pr-4 py-3 rounded-lg bg-primary-500 text-white placeholder-white text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+                        className="w-full pl-10 pr-4 py-3 rounded-lg bg-secondary-500  text-black placeholder-black text-sm focus:ring-2 focus:black outline"
                     />
                 </div>
             </div>
@@ -127,9 +152,13 @@ export default function OrganizationHome() {
                 {filteredTasks.length > 0 ? (
                     <div className="space-y-3">
                         {filteredTasks.map((task) => (
-                            <div
+                            <button
                                 key={task.id}
-                                className="bg-white rounded-lg p-4 shadow-sm border border-gray-100"
+                                onClick={() => {
+                                    setSelectedTask(task);
+                                    setShowDetails(true);
+                                }}
+                                className="w-full text-left bg-white rounded-lg p-4 shadow-sm border border-gray-100 hover:ring-2 hover:ring-primary-500/30 focus:outline-none"
                             >
                                 <div className="flex items-start justify-between mb-2">
                                     <h3 className="font-semibold text-text-500 text-base">
@@ -145,7 +174,7 @@ export default function OrganizationHome() {
                                 <p className="text-sm text-mocha-500">
                                     Deadline: {task.deadline}
                                 </p>
-                            </div>
+                            </button>
                         ))}
                     </div>
                 ) : (
@@ -160,11 +189,26 @@ export default function OrganizationHome() {
                 type="button"
                 aria-label="Raise Request"
                 className="fixed flex bottom-22 right-6 bg-primary-500 text-white rounded-full px-6 py-4 shadow-lg items-center gap-2 font-medium text-sm hover:opacity-90 transition-opacity active:scale-95 z-40 md:hidden"
-                onClick={handleRaiseRequest}
+                onClick={() => setShowRaise(true)}
             >
                 <Plus size={20} />
                 Raise Request
             </button>
+
+            {/* Lazy components must be inside Suspense */}
+            <Suspense fallback={null}>
+                <RaiseRequest
+                    open={showRaise}
+                    onClose={() => setShowRaise(false)}
+                    onSubmit={handleCreateRequest}
+                />
+                <OrgRequestModal
+                    open={showDetails}
+                    task={selectedTask}
+                    onClose={() => setShowDetails(false)}
+                    onUpdateStatus={handleUpdateStatus}
+                />
+            </Suspense>
         </div>
     );
 }
