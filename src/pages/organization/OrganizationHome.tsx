@@ -31,7 +31,7 @@ export default function OrganizationHome() {
         },
     ]);
 
-    // NEW: modal state
+
     const [selectedTask, setSelectedTask] = useState<Task | null>(null);
     const [showDetails, setShowDetails] = useState(false);
 
