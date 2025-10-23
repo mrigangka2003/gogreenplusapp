@@ -49,7 +49,7 @@ export default function TaskDetails() {
     }
 
     return (
-        <div className="min-h-screen bg-[#F6F8F7] text-[#0F172A] pb-24">
+        <div className="min-h-screen bg-tertiary-500 text-text-500 pb-24">
             {/* Top bar */}
             <div className="flex items-center gap-3 px-4 pt-6">
                 <button onClick={() => navigate(-1)} className="p-2 -ml-2">
@@ -63,7 +63,7 @@ export default function TaskDetails() {
                 <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
                     <div className="p-6">
                         <h2 className="text-3xl font-extrabold">{t.title}</h2>
-                        <div className="mt-3 flex items-center gap-2 text-emerald-900/70">
+                        <div className="mt-3 flex items-center gap-2 text-primary-900/70">
                             <MapPin className="h-5 w-5" />
                             <span className="text-base">{t.address}</span>
                         </div>
@@ -120,13 +120,13 @@ export default function TaskDetails() {
                         <>
                             <button
                                 onClick={() => setStatus("accepted")}
-                                className="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-4 rounded-full shadow-sm"
+                                className="w-full bg-primary-500 hover:bg-primary-600 text-white font-semibold py-4 rounded-full shadow-sm"
                             >
                                 Accept
                             </button>
                             <button
                                 onClick={() => navigate("/emp/tasks")}
-                                className="w-full bg-white text-emerald-900/70 border border-emerald-100 font-semibold py-4 rounded-full"
+                                className="w-full bg-white text-primary-900/70 border border-primary-100 font-semibold py-4 rounded-full"
                             >
                                 Reject
                             </button>
@@ -136,7 +136,7 @@ export default function TaskDetails() {
                     {status === "accepted" && (
                         <button
                             onClick={simulateCapture}
-                            className="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-4 rounded-full shadow-sm"
+                            className="w-full bg-primary-500 hover:bg-primary-600 text-white font-semibold py-4 rounded-full shadow-sm"
                         >
                             Start Task (Simulate Photo)
                         </button>
@@ -145,7 +145,7 @@ export default function TaskDetails() {
                     {status === "inprogress" && (
                         <button
                             onClick={simulateCapture}
-                            className="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-4 rounded-full shadow-sm"
+                            className="w-full bg-primary-500 hover:bg-primary-600 text-white font-semibold py-4 rounded-full shadow-sm"
                         >
                             End Task (Simulate Photo)
                         </button>
@@ -154,7 +154,7 @@ export default function TaskDetails() {
                     {status === "completed" && (
                         <button
                             onClick={() => navigate("/emp/tasks")}
-                            className="w-full bg-emerald-500 text-white font-semibold py-4 rounded-full"
+                            className="w-full bg-primary-500 text-white font-semibold py-4 rounded-full"
                         >
                             Done – Back to Tasks
                         </button>

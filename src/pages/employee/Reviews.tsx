@@ -10,12 +10,12 @@ export default function EmployeeReviews() {
     }> = [];
 
     return (
-        <div className="min-h-screen bg-[#F6F8F7] text-[#0F172A] pb-24 px-6 pt-8">
+        <div className="min-h-screen bg-tertiary-500 text-[#0F172A] pb-24 px-6 pt-8">
             <h1 className="text-3xl font-extrabold">Reviews</h1>
 
             {reviews.length === 0 ? (
                 <div className="mt-6 bg-white rounded-2xl shadow-sm border border-gray-100 p-6 flex flex-col items-center text-center">
-                    <div className="h-20 w-20 rounded-full bg-emerald-100 flex items-center justify-center">
+                    <div className="h-20 w-20 rounded-full bg-green-400 flex items-center justify-center">
                         <MessageSquare className="h-10 w-10" />
                     </div>
                     <h3 className="mt-6 text-2xl font-bold">No Reviews Yet</h3>

@@ -6,7 +6,7 @@ export default function EmployeeHome() {
     const userName = "Alex Morgan"; // TODO: replace with real user name from auth/store
 
     return (
-        <div className="min-h-screen bg-[#F6F8F7] text-[#0F172A] pb-24">
+            <div className="min-h-screen bg-tertiary-500 text-[#0F172A] pb-24">
             {/* bottom padding for BottomBar */}
             <header className="px-6 pt-8">
                 <p className="text-[#6B7280] text-lg">Welcome back,</p>
@@ -32,7 +32,7 @@ export default function EmployeeHome() {
 
                     <button
                         onClick={() => navigate("/emp/tasks")}
-                        className="mt-8 w-full bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-3 rounded-xl transition-colors"
+                        className="mt-8 w-full bg-primary-500 hover:bg-green-600 text-white font-semibold py-3 rounded-xl transition-colors"
                     >
                         View My Tasks
                     </button>
