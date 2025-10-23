@@ -1,6 +1,7 @@
 import { useState, lazy, Suspense } from "react";
-import { Search, Users, Plus } from "lucide-react";
+import { Search, Plus } from "lucide-react";
 
+import WelcomeMessage from "../../components/WelcomeMessage";
 const RaiseRequest = lazy(() => import("../../components/RaiseRequest"));
 const OrgRequestModal = lazy(() => import("../../components/Modals/OrgRequestModal"));
 
@@ -86,27 +87,7 @@ export default function OrganizationHome() {
     return (
         <div className="min-h-screen bg-tertiary-500 pb-24 max-w-md mx-auto">
             {/* Header */}
-            <div className="bg-gradient-to-br from-secondary-500 via-secondary-500 to-tertiary-500 px-5 pt-6 pb-8">
-                <div className="flex items-center justify-between mb-6">
-                    <div className="flex items-center gap-2 text-text-500">
-                        <Users size={20} />
-                        <span className="font-medium text-sm">
-                            Organization
-                        </span>
-                    </div>
-                    <button className="text-sm font-medium text-text-500">
-                        Support
-                    </button>
-                </div>
-
-                <h1 className="text-3xl font-bold text-text-500 leading-tight">
-                    Welcome back! Let's
-                    <br />
-                    make today
-                    <br />
-                    productive.
-                </h1>
-            </div>
+            <WelcomeMessage type="Organization"/>
 
             {/* Search Bar */}
             <div className="px-5 -mt-4 mb-6">

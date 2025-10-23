@@ -1,19 +1,15 @@
 import { useNavigate } from "react-router-dom";
 import { PartyPopper } from "lucide-react";
 
+import WelcomeMessage from "../../components/WelcomeMessage";
+import EmpCompletedTask from "../../components/EmpCompletedTask";
+
 export default function EmployeeHome() {
     const navigate = useNavigate();
-    const userName = "Alex Morgan"; // TODO: replace with real user name from auth/store
-
     return (
-            <div className="min-h-screen bg-tertiary-500 text-[#0F172A] pb-24">
+        <div className="min-h-screen bg-tertiary-500 text-[#0F172A] pb-24">
             {/* bottom padding for BottomBar */}
-            <header className="px-6 pt-8">
-                <p className="text-[#6B7280] text-lg">Welcome back,</p>
-                <h1 className="text-3xl font-bold tracking-tight">
-                    {userName}
-                </h1>
-            </header>
+            <WelcomeMessage type="Employee" />
 
             <section className="px-6 mt-8">
                 <h2 className="text-3xl font-extrabold mb-4">Pending Tasks</h2>
@@ -37,6 +33,7 @@ export default function EmployeeHome() {
                         View My Tasks
                     </button>
                 </div>
+                <EmpCompletedTask />
             </section>
         </div>
     );
