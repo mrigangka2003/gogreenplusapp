@@ -11,6 +11,11 @@ export default function EmployeeHome() {
             {/* bottom padding for BottomBar */}
             <WelcomeMessage type="Employee" />
 
+            <div className="px-5 -mt-4 mb-6 bg-secondary-500 border-b border-r shadow-sm border-black rounded-md m-4">
+                <h5 className="font-semibold">Location</h5>
+                <span>Kaman Chowmuhani</span>-<span>Post office Chowmuhai</span>
+            </div>
+
             <section className="px-6 mt-8">
                 <h2 className="text-3xl font-extrabold mb-4">Pending Tasks</h2>
 

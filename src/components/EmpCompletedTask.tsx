@@ -1,3 +1,6 @@
+import TaskCard from "./TaskCard";
+
+
 export type Task = {
     taskId: string;
     location: string;
@@ -107,58 +110,14 @@ const tasks: Task[] = [
 // 4) The component
 export default function EmpCompletedTask() {
     return (
-        <div className="bg-secondary-500 min-h-screen p-4 mt-3 rounded-lg">
-            <h1 className="text-xl font-semibold text-black mb-4">
+        <div className="bg-secondary-500 min-h-screen shadow-md border border-gray-200 mt-2 rounded-md p-4 sm:p-6">
+            <h1 className="text-xl font-semibold text-black mb-5">
                 Completed Tasks
             </h1>
 
             <div className="flex flex-col gap-4">
-                {tasks.map((it) => (
-                    <div
-                        key={it.taskId}
-                        className="bg-tertiary-500 rounded-2xl shadow-sm p-4 flex flex-col sm:flex-row sm:items-center gap-3"
-                    >
-                        {/* Left: Task info */}
-                        <div className="flex-1">
-                            <p className="text-sm text-black font-medium">
-                                {it.taskId}
-                            </p>
-                            <p className="text-xs text-gray-600">
-                                {it.location}
-                            </p>
-
-                            <div className="mt-2 text-xs text-gray-700">
-                                <p>
-                                    <span className="font-semibold">
-                                        Start:
-                                    </span>{" "}
-                                    {new Date(it.startTime).toLocaleString()}
-                                </p>
-                                <p>
-                                    <span className="font-semibold">
-                                        Completed:
-                                    </span>{" "}
-                                    {new Date(
-                                        it.completedTime
-                                    ).toLocaleString()}
-                                </p>
-                            </div>
-                        </div>
-
-                        {/* Right: Before/After photos */}
-                        <div className="flex gap-2 justify-center sm:justify-end">
-                            <img
-                                src={it.beforePhoto}
-                                alt="Before"
-                                className="w-20 h-20 object-cover rounded-md border border-gray-300"
-                            />
-                            <img
-                                src={it.afterPhoto}
-                                alt="After"
-                                className="w-20 h-20 object-cover rounded-md border border-gray-300"
-                            />
-                        </div>
-                    </div>
+                {tasks.map((task) => (
+                    <TaskCard key={task.taskId} task={task} />
                 ))}
             </div>
         </div>
